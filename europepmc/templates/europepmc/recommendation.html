@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+
+    <body>
+
+    <div class="container">
+    
+    {% block content %}
+    <h2>Recommendation</h2>
+
+    <table>
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Publication</th>
+              <th>Biobank</th>
+              <th>Common annotations</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for object in recommendation_list %}
+            <tr>
+                <td>{{ object.jaccard_index|floatformat:2 }}</td>
+                <td>{{ object.publication.title }}</td>
+                <td>{{ object.publication.biobank.name }}</td>
+                <td>{{ object.common_annotations }}</td>
+            </tr>
+            {% endfor %}            
+        </tbody>        
+    </table>
+{% endblock %}
+
+</div>
+</body></html>
