@@ -30,11 +30,11 @@
                 {% else %}
                     <td>&nbsp;</td>
                 {% endifchanged %}
-                <td>{{ publisher.title }} doi: {{ publisher.doi }}
+                <td><strong>{{ publisher.title }}</strong>, doi: {{ publisher.doi }}
 
-                <p>{% for annotation in publisher.annotations.all %}
+                <p><em>{% for annotation in publisher.annotations.all %}
                     {{ annotation.exact }}, 
-                {% endfor %}</p>
+                {% endfor %}</em></p>
                 </td>
             </tr>
             {% endfor %}            

@@ -22,6 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('biobanks/', BiobankList.as_view(), name='biobanks-list'),
     path('biobanks/<int:pk>/publications/', PublicationList.as_view(), name='publications-list'),
-    path('biobanks/<int:pk>/publications/', PublicationList.as_view(), name='publications-list'),
     path('recommendation/<str:article_id>/', get_recommentation, name='recommendation-list'),
 ]

@@ -18,7 +18,6 @@
         <thead>
           <tr>
               <th>#</th>
-              <th>Publication</th>
               <th>Biobank</th>
               <th>Common annotations</th>
           </tr>
@@ -27,8 +26,7 @@
             {% for object in recommendation_list %}
             <tr>
                 <td>{{ object.jaccard_index|floatformat:2 }}</td>
-                <td>{{ object.publication.title }}</td>
-                <td>{{ object.publication.biobank.name }}</td>
+                <td><a href="{% url 'publications-list' object.biobank.id %}">{{ object.biobank.name }}</a></td>
                 <td>{{ object.common_annotations }}</td>
             </tr>
             {% endfor %}            

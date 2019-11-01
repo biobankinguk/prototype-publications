@@ -1,5 +1,5 @@
 import requests
-from .models import Publication
+from .models import Biobank, Publication
 
 
 def jaccard_similarity(list1, list2):
@@ -48,17 +48,17 @@ def calculate_recomendation(article_id):
 
     publication_annotation_list_a = get_europepmc_annotations(article_id)
 
-    biobank_publication_list = Publication.objects.exclude(pid=article_id.split(':')[1])
+    biobank_list = Biobank.objects.all()
 
-    for publication in biobank_publication_list:
+    for biobank in biobank_list:
 
-        publication_annotation_list_b = [x.exact for x in publication.annotations.all()]
+        annotation_list_b = biobank.exact_annotations.split(',')
 
-        response = jaccard_similarity(publication_annotation_list_a, publication_annotation_list_b)
+        response = jaccard_similarity(publication_annotation_list_a, annotation_list_b)
 
         obj = {
             'jaccard_index': response['jaccard_index'],
-            'publication': publication,
+            'biobank': biobank,
             'common_annotations': response['common_annotations']
         }
 
