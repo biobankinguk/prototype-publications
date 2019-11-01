@@ -22,6 +22,11 @@ class Biobank(models.Model):
         max_length=128
     )
 
+    exact_annotations = models.TextField(
+        null=True,
+        blank=True,
+    )
+
     objects = BiobankManager()
 
     class Meta:
@@ -47,7 +52,8 @@ class Publication(models.Model):
 
     biobank = models.ForeignKey(
         Biobank,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='publications',
     )
 
     pid = models.CharField(
