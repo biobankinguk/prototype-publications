@@ -26,6 +26,4 @@ To run the test suite using pytest
 python manage.py test
 ```
 
-To contribute to this repository, please use separate branches for 
-development of each feature, and use the Pull Request system rather
-than merging directly into `master`.
+To contribute to this repository, please refer to `CONTRIBUTING.md`.

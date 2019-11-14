@@ -16,8 +16,8 @@ Please link each PR to a work item from the current sprint. If no work items
 are linked, the PR cannot be merged - a new work item should be raised in 
 order to facilitate capturing the work being done.
 
-If you reference a work item by id in a commit message - e.g. #12345 
-Fixed issue where data was eaten by a grue - DevOps will auto link the item 
+If you reference a work item by id in a commit message - e.g. `#12345
+Fixed issue where data was eaten by a grue` - DevOps will auto link the item
 to the commit, and therefore the PR.
 
 Otherwise you can manually link items at the point of PR creation, or 
