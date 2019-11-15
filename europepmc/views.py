@@ -1,6 +1,7 @@
 from django.views.generic import ListView
 from europepmc.models import Biobank, Publication
 from .utils import calculate_recomendation
+from .utils import calculate_recomendation_by_publication
 from django.shortcuts import render
 
 
@@ -24,9 +25,46 @@ class PublicationList(ListView):
         context['biobank'] = biobank
         return context
 
+
+def get_publications(request, pk):
+
+    biobank = Biobank.objects.get(pk=pk)
+
+    publication_list = Publication.objects.filter(biobank=biobank)
+
+    result = []
+
+    for p in publication_list:
+
+        annotation_list = p.annotations.all()
+
+        exact_set = set()
+
+        for a in annotation_list:
+
+            exact_set.add(a.exact.lower())
+
+        obj = {
+            'year': p.year,
+            'title': p.title,
+            'doi': p.doi,
+            'annotations': ', '.join(sorted(exact_set))
+        }
+
+        result.append(obj)
+
+    context = {
+        'object_list': result,
+        'biobank': biobank
+    }
+
+    return render(request, 'europepmc/publication_list.html', context)
+
+
 def get_recommentation(request, article_id):
 
-    recommendation_list = calculate_recomendation(article_id)
+    # recommendation_list = calculate_recomendation(article_id)
+    recommendation_list = calculate_recomendation_by_publication(article_id)
 
     context = {
         'recommendation_list': recommendation_list[:5],

@@ -30,11 +30,11 @@
                 {% else %}
                     <td>&nbsp;</td>
                 {% endifchanged %}
-                <td><strong>{{ publisher.title }}</strong>, doi: {{ publisher.doi }}
+                <td><strong>{{ publisher.title }}</strong>, <a target='_blank' href='https://doi.org/{{ publisher.doi }}'>{{ publisher.doi }}</a>
 
-                <p><em>{% for annotation in publisher.annotations.all %}
-                    {{ annotation.exact }}, 
-                {% endfor %}</em></p>
+                <p><em>
+                    {{ publisher.annotations }}, 
+                </em></p>
                 </td>
             </tr>
             {% endfor %}            
