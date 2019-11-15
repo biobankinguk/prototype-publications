@@ -20,6 +20,7 @@
               <th>#</th>
               <th>Biobank</th>
               <th>Common annotations</th>
+              <th>Publication</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +28,8 @@
             <tr>
                 <td>{{ object.jaccard_index|floatformat:2 }}</td>
                 <td><a href="{% url 'publications-list' object.biobank.id %}">{{ object.biobank.name }}</a></td>
-                <td>{{ object.common_annotations }}</td>
+                <td><em>{{ object.common_annotations }}</em></td>
+                <td>{{ object.publication.title }}, {{ object.publication.year }}, <a target='_blank' href='https://doi.org/{{ object.publication.doi }}'>{{ object.publication.doi }}</a></td>
             </tr>
             {% endfor %}            
         </tbody>        

@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from europepmc.views import BiobankList, PublicationList
+from europepmc.views import BiobankList
 from europepmc.views import get_recommentation
+from europepmc.views import get_publications
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('biobanks/', BiobankList.as_view(), name='biobanks-list'),
-    path('biobanks/<int:pk>/publications/', PublicationList.as_view(), name='publications-list'),
+    path('', BiobankList.as_view(), name='biobanks-list'),
+    # path('biobanks/', BiobankList.as_view(), name='biobanks-list'),
+    path('biobanks/<int:pk>/publications/', get_publications, name='publications-list'),
+    # path('biobanks/<int:pk>/publications/', PublicationList.as_view(), name='publications-list'),
     path('recommendation/<str:article_id>/', get_recommentation, name='recommendation-list'),
 ]
