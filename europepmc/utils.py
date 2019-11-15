@@ -4,22 +4,17 @@ from .models import Biobank, Publication
 
 def jaccard_similarity(list1_original, list2_original):
 
-    list1 = [item.lower() for item in list1_original]
-    list2 = [item.lower() for item in list2_original]
+    set1 = set([item.lower() for item in list1_original])
+    set2 = set([item.lower() for item in list2_original])
 
-    intersection = len(list(set(list1).intersection(set(list2))))
-    union = (len(set(list1)) + len(set(list2))) - intersection
+    intersection = set1.intersection(set2)
+    union = set1.union(set2)
 
-    jaccard_index = float(intersection) / union
-
-    # if jaccard_index > 0.03:
-    #     print('>>>> {}'.format(jaccard_index))
-    #     print(set(list1))
-    #     print(set(list2))
+    jaccard_distance = (float(len(union)) - len(intersection)) / len(union)
 
     result = {
-        'jaccard_index': jaccard_index,
-        'common_annotations': ', '.join(sorted(set(list1).intersection(set(list2))))
+        'jaccard_index': 1.0 - jaccard_distance,
+        'common_annotations': ', '.join(sorted(intersection))
     }
 
     return result
