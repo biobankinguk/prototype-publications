@@ -117,15 +117,11 @@ def search_publications(search_text):
     result = []
 
     for publication in r.json()['resultList']['result']:
-        pubYear = publication['pubYear']
-        title = publication['title']
-        pid = publication['id']
-        source = publication['source']
-
-        try:
-            doi = publication['doi']
-        except KeyError as e:
-            doi = ''
+        pubYear = publication.get('pubYear')
+        title = publication.get('title')
+        pid = publication.get('id')
+        source = publication.get('source')
+        doi = publication.get('doi', '')
 
         result.append(PublicationTuple(pubYear, title, pid, source, doi))
 
