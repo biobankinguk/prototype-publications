@@ -2,6 +2,7 @@ from django.views.generic import ListView
 from europepmc.models import Biobank, Publication
 from .utils import calculate_recomendation
 from .utils import calculate_recomendation_by_publication
+from .utils import search_publications
 from django.shortcuts import render
 
 
@@ -71,3 +72,23 @@ def get_recommentation(request, article_id):
     }
 
     return render(request, 'europepmc/recommendation.html', context)
+
+
+def search(request):
+
+    # recommendation_list = calculate_recomendation(article_id)
+    # recommendation_list = calculate_recomendation_by_publication(article_id)
+
+    search_text = None
+    result = None
+
+    if request.method == 'POST':
+        search_text = request.POST.get('search_text')
+        result = search_publications(search_text)
+
+    context = {
+        'search_text': search_text,
+        'result': result,
+    }
+
+    return render(request, 'europepmc/search.html', context)

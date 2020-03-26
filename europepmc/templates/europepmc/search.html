@@ -1,0 +1,63 @@
+<html>
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    {% block content %}
+    <h2>Search</h2>
+
+
+    <div class="row">
+        <form class="col s12" method="post">{% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <input value="" id="search_text" name="search_text" type="text"
+                           class="validate">
+                    <label for="search_text">Biobank name</label>
+                </div>
+            </div>
+
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+
+        </form>
+    </div>
+
+    {% if result %}
+    <h3>Search criteria: {{ search_text }}</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Publication</th>
+            <th>Pid, Source, doi</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in result %}
+        <tr>
+            <td>{{ object.year }}</td>
+            <td><em>{{ object.title }}</em></td>
+            <td>
+                {{ object.pid }},
+                {{ object.source }},
+                <a target='_blank' href='https://doi.org/{{ object.doi }}'>{{ object.doi }}</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+    {% endblock %}
+
+</div>
+</body>
+</html>

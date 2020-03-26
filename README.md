@@ -27,3 +27,8 @@ python manage.py test
 ```
 
 To contribute to this repository, please refer to `CONTRIBUTING.md`.
+
+2020-03-13 
+- This code was deployed on Azure using the information available at https://docs.microsoft.com/en-us/azure/app-service/containers/quickstart-python?toc=%2Fazure%2Fpython%2Ftoc.json&bc=%2Fazure%2Fpython%2Fbreadcrumb%2Ftoc.json&tabs=bash
+- The command is az webapp up --sku F1 -n atlas-publications -l uksouth --subscription SV-ADAC-Biobanking-UK
+

@@ -18,6 +18,7 @@ from django.urls import path
 from europepmc.views import BiobankList
 from europepmc.views import get_recommentation
 from europepmc.views import get_publications
+from europepmc.views import search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('biobanks/<int:pk>/publications/', get_publications, name='publications-list'),
     # path('biobanks/<int:pk>/publications/', PublicationList.as_view(), name='publications-list'),
     path('recommendation/<str:article_id>/', get_recommentation, name='recommendation-list'),
+    path('search/', search, name='search'),
 ]

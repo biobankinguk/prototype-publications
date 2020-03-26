@@ -1,4 +1,7 @@
 import requests
+
+from collections import namedtuple
+
 from .models import Biobank, Publication
 
 
@@ -101,3 +104,25 @@ def calculate_recomendation_by_publication(article_id):
             uniq_result.append(p)
 
     return uniq_result
+
+
+def search_publications(search_text):
+
+    endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="{}"&format=json'
+
+    r = requests.get(endpoint.format(search_text))
+
+    PublicationTuple = namedtuple('PublicationTuple', 'year title pid source doi')
+
+    result = []
+
+    for publication in r.json()['resultList']['result']:
+        pubYear = publication.get('pubYear')
+        title = publication.get('title')
+        pid = publication.get('id')
+        source = publication.get('source')
+        doi = publication.get('doi', '')
+
+        result.append(PublicationTuple(pubYear, title, pid, source, doi))
+
+    return result
