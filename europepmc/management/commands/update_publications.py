@@ -40,11 +40,14 @@ class Command(BaseCommand):
         endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=ACK_FUND:{}&format=json'
 
         req = requests.get(endpoint.format(biobank))
-        req_json = req.json()
+        if req.status_code == 200:
+            req_json = req.json()
+            next_cursor = req_json.get('nextCursorMark', '')
+            results = req_json.get('resultList', {}).get('result', [])
+        else:
+            next_cursor = ''
+            results = []
         req.close()
-
-        next_cursor = req_json.get('nextCursorMark', '')
-        results = req_json.get('resultList', {}).get('result', [])
 
         while next_cursor != '*' and next_cursor != '':
             req2 = requests.get(endpoint.format(biobank), params={'cursorMark': next_cursor})
