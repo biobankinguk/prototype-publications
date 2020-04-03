@@ -51,10 +51,15 @@ class Command(BaseCommand):
 
         while next_cursor != '*' and next_cursor != '':
             req2 = requests.get(endpoint.format(biobank), params={'cursorMark': next_cursor})
-            req2_json = req2.json()
+            if req2.status_code == 200:
+                req2_json = req2.json()
+                next_cursor = req2_json.get('nextCursorMark', '')
+                articles = req2_json.get('resultList', {}).get('result', [])
+            else:
+                next_cursor = ''
+                articles = []
             req2.close()
-            next_cursor = req2_json.get('nextCursorMark', '')
-            articles = req2_json.get('resultList', {}).get('result', [])
+
             if not articles:
                 break
             results.extend(articles)
