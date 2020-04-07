@@ -13,6 +13,7 @@ class BiobankList(ListView):
         queryset = Biobank.objects.with_publication()
         return queryset
 
+
 class PublicationList(ListView):
     model = Publication
 
