@@ -42,7 +42,6 @@ class Command(BaseCommand):
         """
 
         endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=ACK_FUND:"{}"&format=json'
-        print(endpoint.format(biobank))
 
         req = requests.get(endpoint.format(biobank))
         if req.status_code == 200:
