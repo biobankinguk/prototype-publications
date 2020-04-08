@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
+from django.conf import settings
+
 from europepmc.models import Biobank, Publication, Annotation, Tag
 
 import requests
@@ -13,7 +15,9 @@ class Command(BaseCommand):
 
         for biobank in Biobank.objects.all():
 
+            Publication.objects.filter(biobank=biobank).delete()
             publications = self.get_articles_from_pagination(biobank)
+            print('{}, {}'.format(biobank.name, len(publications)))
 
             for publication in publications:
                 pub_year = publication.get('pubYear', 0)
@@ -37,7 +41,8 @@ class Command(BaseCommand):
         :return:
         """
 
-        endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=ACK_FUND:{}&format=json'
+        endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=ACK_FUND:"{}"&format=json'
+        print(endpoint.format(biobank))
 
         req = requests.get(endpoint.format(biobank))
         if req.status_code == 200:

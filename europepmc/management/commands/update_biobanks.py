@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
+from django.conf import settings
+
 from europepmc.models import Biobank, Publication, Annotation, Tag
 
 import pyodbc
@@ -12,15 +14,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        server = 'UiWdtSQL09.nottingham.ac.uk'
-        database = 'biobankinguk'
-        username = 'WPConnectBioBank'
-        password = 'u9aH6rBFuf040Ofg8mxyEXjfp'
+        server = settings.BIOBANKING_DB_HOST
+        database = settings.BIOBANKING_DB_NAME
+        username = settings.BIOBANKING_DB_USER
+        password = settings.BIOBANKING_DB_PASSWORD
+        
         cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()
 
-        # tsql = "SELECT name FROM organisations WHERE name='Northern Ireland Biobank (NIB)'"
         tsql = "SELECT name FROM organisations"
+
         with cursor.execute(tsql):
 
             row = cursor.fetchone()

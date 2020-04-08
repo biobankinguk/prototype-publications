@@ -1,7 +1,5 @@
-import requests
-
 from collections import namedtuple
-
+import requests
 from .models import Biobank, Publication
 
 
