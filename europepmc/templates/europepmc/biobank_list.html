@@ -17,16 +17,16 @@
         <thead>
           <tr>
               <th>Name</th>
-              <th>Total of publications</th>
+              <th class="right">Total of publications</th>
           </tr>
         </thead>
         <tbody>
             {% for publisher in object_list %}
             <tr>
-                    <td><a href="{% url 'publications-list' publisher.id %}">{{ publisher.name }}</a></td>
-                    <td>{{ publisher.total_publication}}</td>
-                  </tr>
-                  {% endfor %}            
+                <td><a href="{% url 'publications-list' publisher.id %}">{{ publisher.name }}</a></td>
+                <td class="right">{{ publisher.total_publication}}</td>
+            </tr>
+            {% endfor %}            
           </tbody>        
       </table>
 

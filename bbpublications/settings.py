@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2gnbai2uuufntt7z=k%b9jhwgm8g7fym0b1krk))5=q)189w!n'
+SECRET_KEY = os.environ['BB_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['BB_DEBUG']
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_SITE_NAME'] + '.azurewebsites.net', '127.0.0.1'] if 'WEBSITE_SITE_NAME' in os.environ else []
 
@@ -124,3 +124,11 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+BIOBANKING_DB_HOST=os.environ['BIOBANKING_DB_HOST']
+BIOBANKING_DB_NAME=os.environ['BIOBANKING_DB_NAME']
+BIOBANKING_DB_USER=os.environ['BIOBANKING_DB_USER']
+BIOBANKING_DB_PASSWORD=os.environ['BIOBANKING_DB_PASSWORD']
+
+
+

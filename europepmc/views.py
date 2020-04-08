@@ -1,12 +1,14 @@
 from django.views.generic import ListView
+from django.shortcuts import render
 from europepmc.models import Biobank, Publication
-from .utils import calculate_recomendation
 from .utils import calculate_recomendation_by_publication
 from .utils import search_publications
-from django.shortcuts import render
 
 
 class BiobankList(ListView):
+    """
+    List all biobanks
+    """
     model = Biobank
 
     def get_queryset(self):
@@ -15,6 +17,9 @@ class BiobankList(ListView):
 
 
 class PublicationList(ListView):
+    """
+    List publications of a biobank
+    """
     model = Publication
 
     def get_queryset(self):
@@ -23,12 +28,18 @@ class PublicationList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        biobank = Biobank.objects.get(pk=self.kwargs.get('pk')) # the self.kwargs is different from **kwargs, and gives access to the named url parameters
+
+        # the self.kwargs is different from **kwargs, and gives access to the named url parameters
+        biobank = Biobank.objects.get(pk=self.kwargs.get('pk'))
+
         context['biobank'] = biobank
         return context
 
 
 def get_publications(request, pk):
+    """
+    List publications of a biobank (duplicate?)
+    """
 
     biobank = Biobank.objects.get(pk=pk)
 
@@ -64,8 +75,10 @@ def get_publications(request, pk):
 
 
 def get_recommentation(request, article_id):
+    """
+    List recomendations given an article
+    """
 
-    # recommendation_list = calculate_recomendation(article_id)
     recommendation_list = calculate_recomendation_by_publication(article_id)
 
     context = {
@@ -76,9 +89,9 @@ def get_recommentation(request, article_id):
 
 
 def search(request):
-
-    # recommendation_list = calculate_recomendation(article_id)
-    # recommendation_list = calculate_recomendation_by_publication(article_id)
+    """
+    Search publications given a keyword
+    """
 
     search_text = None
     result = None
